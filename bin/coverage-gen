@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+function justdie {
+    echo "$1"
+    exit 1
+}
+
+exists_in_path () {
+    case $(command -v -- "$1") in
+        /*) return 0;;
+        alias\ *) return 1;; # alias
+        *) return 1;; # built-in or function
+    esac
+}
+
+usage() { echo "Usage: $0 [-i] [-h]" 1>&2; exit 1; }
+
+opt_i=""
+while getopts "ih" o; do
+    case "${o}" in
+        i)
+            opt_i="yes"
+            ;;
+        h)
+            usage
+            ;;
+        *)
+            opt_i=""
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+dart pub global activate coverage
+
+mkdir -p coverage
+dart pub global run coverage:test_with_coverage || justdie "tests failed"
+genhtml -o coverage coverage/lcov.info || justdie "genhtml failed"
+
+dart ./bin/coverage_badge.dart ./coverage/lcov.info
+
+if [ -n "$opt_i" ] && exists_in_path open; then
+    open coverage/index.html
+fi

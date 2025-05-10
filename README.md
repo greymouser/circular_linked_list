@@ -10,6 +10,8 @@ A lightweight and flexible Dart package providing a circular doubly-linked list 
 - Dynamic head reassignment with `setToHead`
 - Custom iterator and length tracking
 
+![Coverage](https://raw.githubusercontent.com/greymouser/circular_linked_list/master/coverage_badge.svg?sanitize=true)
+
 ## Getting started
 
 Add the package to your `pubspec.yaml` (if publishing), or include the source files in your project. No external dependencies required.

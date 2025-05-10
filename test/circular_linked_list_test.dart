@@ -206,6 +206,15 @@ void main() {
 
     test('iterate on empty list', () {
       var emptyList = CircularLinkedList<StringEntry>();
+      var count = 0;
+      for (var _ in emptyList) {
+        count++;
+      }
+      expect(count, 0);
+    });
+
+    test('iterate by count on empty list', () {
+      var emptyList = CircularLinkedList<StringEntry>();
       var result = emptyList.iterate(count: 5).map((e) => e.value).join();
       expect(result, '');
     });
@@ -215,6 +224,27 @@ void main() {
       singleList.add(StringEntry('X'));
       var result = singleList.iterate(count: 4).map((e) => e.value).join();
       expect(result, 'XXXX');
+    });
+  });
+
+  group('CircularLinkedList iterate() tests', () {
+    late CircularLinkedList<StringEntry> list;
+    final a = StringEntry('A');
+    final b = StringEntry('B');
+    final c = StringEntry('C');
+
+    setUp(() {
+      list = CircularLinkedList<StringEntry>();
+      list.add(a);
+      list.add(b);
+      list.add(c);
+    });
+
+    test('insertBefore at head', () {
+      var newHead = StringEntry('HEAD');
+      a.insertBefore(newHead);
+      expect(list.first, newHead);
+      expect(list.map((e) => e.value).toList(), ['HEAD', 'A', 'B', 'C']);
     });
   });
 }
