@@ -49,6 +49,11 @@ c.insertBefore(StringEntry('X'));
 var a = list.firstWhere((e) => e.value == 'A');
 list.remove(a);
 
+// Iterate over the circle greater than the length of items in it
+for (var entry in list.iterate(count: 10)) {
+  print(entry.value);
+}
+
 // Clear the list
 list.clear();
 ```

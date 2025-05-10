@@ -28,7 +28,6 @@ import 'package:circular_linked_list/circular_linked_list.dart';
 // Example usage of CircularLinkedList
 
 final class StringEntry with CircularLinkedListEntry<StringEntry> {
-  @override
   String value;
 
   StringEntry(this.value);
@@ -79,6 +78,14 @@ void main() {
   // Convert to list
   var asList = list.map((e) => e.value).toList();
   print('\nAs Dart List: $asList');
+
+  // Iterate over the circle greater than the length of items in it
+  print('\nIterating for a 10-count over the circular list:');
+  var count = 1;
+  for (var entry in list.iterate(count: 10)) {
+    print('$count. ${entry.value}');
+    count++;
+  }
 
   // Clear the list
   list.clear();

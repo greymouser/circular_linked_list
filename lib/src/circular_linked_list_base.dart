@@ -124,8 +124,21 @@ base class CircularLinkedList<E extends CircularLinkedListEntry<E>>
     }
   }
 
+  /// Iterate over the list for a specified number of steps (even if greater than length)
+  Iterable<E> iterate({required int count}) sync* {
+    if (_head == null || count <= 0) return;
+    var node = _head;
+    for (var i = 0; i < count; i++) {
+      yield node!;
+      node = node.next;
+    }
+  }
+
   @override
-  Iterator<E> get iterator => _CircularLinkedListIterator(_head!, _length);
+  Iterator<E> get iterator =>
+      _head == null
+          ? <E>[].iterator
+          : _CircularLinkedListIterator(_head!, _length);
 
   @override
   int get length => _length;

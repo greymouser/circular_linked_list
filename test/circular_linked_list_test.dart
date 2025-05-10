@@ -178,4 +178,43 @@ void main() {
       expect(list.map((e) => e.value).toList(), ['B', 'C']);
     });
   });
+
+  group('CircularLinkedList iterate() tests', () {
+    late CircularLinkedList<StringEntry> list;
+
+    setUp(() {
+      list = CircularLinkedList<StringEntry>();
+      list.add(StringEntry('A'));
+      list.add(StringEntry('B'));
+      list.add(StringEntry('C'));
+    });
+
+    test('iterate over exact length', () {
+      var result = list.iterate(count: 3).map((e) => e.value).join();
+      expect(result, 'ABC');
+    });
+
+    test('iterate over more than length', () {
+      var result = list.iterate(count: 7).map((e) => e.value).join();
+      expect(result, 'ABCABCA');
+    });
+
+    test('iterate with count zero', () {
+      var result = list.iterate(count: 0).map((e) => e.value).join();
+      expect(result, '');
+    });
+
+    test('iterate on empty list', () {
+      var emptyList = CircularLinkedList<StringEntry>();
+      var result = emptyList.iterate(count: 5).map((e) => e.value).join();
+      expect(result, '');
+    });
+
+    test('iterate single-item list repeatedly', () {
+      var singleList = CircularLinkedList<StringEntry>();
+      singleList.add(StringEntry('X'));
+      var result = singleList.iterate(count: 4).map((e) => e.value).join();
+      expect(result, 'XXXX');
+    });
+  });
 }
