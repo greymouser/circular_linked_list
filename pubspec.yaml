@@ -1,7 +1,7 @@
 name: circular_linked_list
 description: A lightweight and flexible Dart package providing a circular doubly-linked list with advanced entry-level controls. This package is useful for developers who need efficient insertion, deletion, and traversal operations in a circular data structure.
 version: 1.0.0
-repository: https://github.com/my_org/my_repo
+repository: https://github.com/greymouser/circular_linked_list
 
 environment:
   sdk: ^3.7.2
